@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48">
+  <!-- Agentify "bracket" — {agent} between curves + wordmark -->
+  <path d="M12 8c-5 0-7 4-7 8v4c0 2-1 4-4 4c3 0 4 2 4 4v4c0 4 2 8 7 8" fill="none" stroke="#c4644a" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M36 8c5 0 7 4 7 8v4c0 2 1 4 4 4c-3 0-4 2-4 4v4c0 4-2 8-7 8" fill="none" stroke="#c4644a" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="24" cy="24" r="5" fill="#c4644a"/>
+  <text x="56" y="33" font-family="'Geist','DM Sans',-apple-system,system-ui,sans-serif" font-size="26" font-weight="500" fill="#fafafa" letter-spacing="-0.03em">agentify</text>
+</svg>
