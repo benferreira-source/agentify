@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48">
+  <!-- Agentify "loop" — orchestration infinity mark + wordmark -->
+  <path d="M16 24c0-6.5 4.5-12 10-12s8 3.5 8 8c0 4.5-2 8-8 12s-8 3.5-8-1c0-4.5 4.5-12 10-12s10 5.5 10 12" fill="none" stroke="#c4644a" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="24" cy="24" r="3" fill="#c4644a"/>
+  <text x="56" y="33" font-family="'Geist','DM Sans',-apple-system,system-ui,sans-serif" font-size="26" font-weight="500" fill="#fafafa" letter-spacing="-0.03em">agentify</text>
+</svg>

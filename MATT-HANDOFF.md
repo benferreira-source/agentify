@@ -11,13 +11,13 @@ Matt,
 Quick rundown:
 
 - **Live site:** https://agentify.benops.dev
-- **GitHub repo:** https://github.com/{{GH_USER}}/agentify
-- **GTM playbook:** https://github.com/{{GH_USER}}/agentify/blob/main/docs/GTM-PLAYBOOK.md
+- **GitHub repo:** https://github.com/benferreira-source/agentify
+- **GTM playbook:** https://github.com/benferreira-source/agentify/blob/main/docs/GTM-PLAYBOOK.md
 
 Stack is one file of HTML (`index.html`) — no build step. Dark aesthetic, Instrument Serif + DM Sans, #0071e3 accent, live-call phone demo, pricing, FAQ, the whole thing.
 
 **For edits:**
-1. Clone the repo (`gh repo clone {{GH_USER}}/agentify`)
+1. Clone the repo (`gh repo clone benferreira-source/agentify`)
 2. Edit `index.html` directly
 3. Open a PR against `main` — I'll review and merge
 
