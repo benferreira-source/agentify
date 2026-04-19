@@ -34,13 +34,13 @@ a{color:inherit;text-decoration:none}
   --text-dim:#a1a1a6;
   --text-muted:#86868b;
   --text-dark:#1d1d1f;
-  --accent:#c4644a;
-  --accent-hover:#b85a41;
-  --accent-glow:rgba(196,100,74,.35);
+  --accent:#0071e3;
+  --accent-hover:#0077ed;
+  --accent-glow:rgba(0,113,227,.35);
   --green:#30d158;
   --green-glow:rgba(48,209,88,.35);
-  --coral:#c4644a;
-  --coral-glow:rgba(196,100,74,.35);
+
+
   --border:rgba(255,255,255,.08);
   --border-strong:rgba(255,255,255,.14);
   --serif:"Instrument Serif",ui-serif,Georgia,serif;
@@ -94,10 +94,10 @@ nav{
 }
 .nav-inner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-size:19px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
-.nav-logo .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);animation:pulse 2.4s var(--ease) infinite}
+.nav-logo .dot{width:9px;height:9px;border-radius:50%;background:#0071e3;box-shadow:0 0 12px rgba(0,113,227,.35);animation:pulse 2.4s var(--ease) infinite}
 .nav-logo .mark{width:28px;height:28px;position:relative;display:flex;align-items:center;justify-content:center}
-.nav-logo .mark::before{content:"";position:absolute;inset:0;border:1.8px solid var(--accent);border-radius:7px;opacity:.85}
-.nav-logo .mark .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);animation:pulse 2.4s var(--ease) infinite}
+.nav-logo .mark::before{content:"";position:absolute;inset:0;border:1.8px solid #0071e3;border-radius:7px;opacity:.85}
+.nav-logo .mark .dot{width:9px;height:9px;border-radius:50%;background:#0071e3;box-shadow:0 0 12px rgba(0,113,227,.35);animation:pulse 2.4s var(--ease) infinite}
 .nav-links{display:none;align-items:center;gap:32px}
 .nav-links a{font-size:13px;color:var(--text-dim);font-weight:400;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
@@ -932,7 +932,7 @@ footer{
         <span><span class="check">✓</span>Live in days</span>
       </div>
       <p style="margin-top:40px;color:var(--text-muted);font-size:14px" class="reveal delay-3">
-        Prefer email? <a href="mailto:benferreira@icloud.com?subject=Agentify%20-%20Strategy%20Call" style="color:var(--accent);border-bottom:1px solid rgba(0,113,227,.3)">benferreira@icloud.com</a> · <a href="tel:6129618786" style="color:var(--accent);border-bottom:1px solid rgba(0,113,227,.3)">(612) 961-8786</a>
+        Prefer email? <a href="mailto:hello@useagentify.com?subject=Agentify%20-%20Strategy%20Call" style="color:var(--accent);border-bottom:1px solid var(--accent-glow)">hello@useagentify.com</a> · <a href="tel:6129618786" style="color:var(--accent);border-bottom:1px solid var(--accent-glow)">(612) 961-8786</a>
       </p>
     </div>
   </section>
@@ -941,12 +941,12 @@ footer{
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow)"></span>agentify</div>
+    <div class="footer-brand"><span style="width:8px;height:8px;border-radius:50%;background:#0071e3;box-shadow:0 0 10px rgba(0,113,227,.35)"></span>agentify</div>
     <div class="footer-links">
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
       <a href="#contact">Contact</a>
-      <a href="mailto:benferreira@icloud.com">Email</a>
+      <a href="mailto:hello@useagentify.com">Email</a>
     </div>
     <div>&copy; 2026 Agentify · Minneapolis, MN</div>
   </div>
@@ -1005,7 +1005,7 @@ footer{
   });
   Cal.ns["agentify-inline"]("ui", {
     theme: "dark",
-    styles: {branding: {brandColor: "#0071e3"}},
+    styles: {branding: {brandColor: "#c4644a"}},
     hideEventTypeDetails: false,
     layout: "month_view"
   });
@@ -1014,7 +1014,7 @@ footer{
   Cal("init", "agentify-popup", {origin:"https://cal.com"});
   Cal.ns["agentify-popup"]("ui", {
     theme: "dark",
-    styles: {branding: {brandColor: "#0071e3"}}
+    styles: {branding: {brandColor: "#c4644a"}}
   });
 
   // Wire up all [data-cal-link] buttons as popup triggers
