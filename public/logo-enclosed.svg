@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48">
   <!-- Agentify "enclosed" — dot inside a squircle + wordmark -->
-  <rect x="2" y="2" width="44" height="44" rx="12" fill="none" stroke="#c4644a" stroke-width="2.2"/>
-  <circle cx="24" cy="24" r="8.5" fill="#c4644a"/>
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="none" stroke="#0071e3" stroke-width="2.2"/>
+  <circle cx="24" cy="24" r="8.5" fill="#0071e3"/>
   <text x="60" y="33" font-family="'Geist','DM Sans',-apple-system,system-ui,sans-serif" font-size="26" font-weight="500" fill="#fafafa" letter-spacing="-0.03em">agentify</text>
 </svg>
