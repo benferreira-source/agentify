@@ -24,8 +24,8 @@ echo "→ Probing http://localhost:8810/healthz …"
 curl -sS http://localhost:8810/healthz || echo "(no response — check /tmp/agentify-error.log)"
 
 echo ""
-echo "→ Probing https://agentify.benops.dev/ …"
-curl -sS -o /dev/null -w "HTTP %{http_code} · %{size_download} bytes · %{time_total}s\n" https://agentify.benops.dev/
+echo "→ Probing https://useagentify.com/ …"
+curl -sS -o /dev/null -w "HTTP %{http_code} · %{size_download} bytes · %{time_total}s\n" https://useagentify.com/
 
 echo ""
 echo "✓ Done. Tail logs with: tail -f /tmp/agentify.log"

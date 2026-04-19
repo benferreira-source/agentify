@@ -28,7 +28,7 @@ with live call transcript, scroll-reveal sections.
 - index.html (single-file site, embedded CSS/JS)
 - docs/GTM-PLAYBOOK.md (outbound strategy, ICP, pricing, funnel)
 - public/favicon.svg, og-image.png
-- CNAME: agentify.benops.dev
+- CNAME: useagentify.com
 - vercel.json, .gitignore, README.md, push.sh"
 
 # Create the repo on GitHub, set as origin, push main.

@@ -2,7 +2,7 @@
 
 Marketing site + GTM playbook for **Agentify** — an AI receptionist for independent businesses.
 
-**Live site:** [agentify.benops.dev](https://agentify.benops.dev)
+**Live site:** [useagentify.com](https://useagentify.com)
 
 ---
 
@@ -59,13 +59,13 @@ npx vercel --prod
 
 Vercel auto-redeploys on every push to `main`.
 
-Point the custom domain `agentify.benops.dev` to Vercel in:
-**Project → Settings → Domains → Add `agentify.benops.dev`**.
+Point the custom domain `useagentify.com` to Vercel in:
+**Project → Settings → Domains → Add `useagentify.com`**.
 
 ## Deploy — GitHub Pages (alternative)
 
 1. Settings → Pages → Source: `main` branch, `/` root
-2. Add a `CNAME` file with `agentify.benops.dev` (already included)
+2. Add a `CNAME` file with `useagentify.com` (already included)
 3. Point DNS: `CNAME agentify → benops.github.io`
 
 ## Working on design with Matt

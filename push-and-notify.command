@@ -10,7 +10,7 @@ echo "=== Notifying Jonas/Finn about logo refresh ==="
 curl -s -X POST "https://relay.finlynk.net/relay/send" \
   -H "X-API-Key: dobby-relay-key-2026" \
   -H "Content-Type: application/json" \
-  -d '{"from":"dobby","to":"jonas","message":"Hey Jonas/Finn — just shipped a brand refresh for Agentify. New logo system with 3 directions: enclosed (dot in squircle), loop (infinity/orchestration mark), and bracket ({agent} between curves). All use a warm coral #c4644a accent on dark backgrounds. Updated the site at agentify.benops.dev with the enclosed mark as the primary. Check it out and let us know what you think!"}'
+  -d '{"from":"dobby","to":"jonas","message":"Hey Jonas/Finn — just shipped a brand refresh for Agentify. New logo system with 3 directions: enclosed (dot in squircle), loop (infinity/orchestration mark), and bracket ({agent} between curves). All use a warm coral #c4644a accent on dark backgrounds. Updated the site at useagentify.com with the enclosed mark as the primary. Check it out and let us know what you think!"}'
 echo ""
 
 echo "=== Asking for logo feedback ==="
