@@ -101,15 +101,51 @@ nav{
 .nav-links{display:none;align-items:center;gap:32px}
 .nav-links a{font-size:13px;color:var(--text-dim);font-weight:400;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
+.nav-links a.active{color:var(--text)}
 .nav-cta{
+  display:none;
   background:var(--text);color:var(--bg);
   padding:9px 18px;border-radius:var(--radius-pill);
   font-size:13px;font-weight:500;
   transition:transform .2s var(--ease),background .2s;
 }
 .nav-cta:hover{transform:translateY(-1px);background:#fff}
+@media(min-width:768px){.nav-cta{display:inline-flex}}
+
+/* Mobile menu */
+.nav-hamburger{
+  display:flex;flex-direction:column;gap:5px;
+  padding:8px;cursor:pointer;z-index:101;
+  background:none;border:none;
+}
+.nav-hamburger span{
+  display:block;width:20px;height:1.5px;
+  background:var(--text);border-radius:2px;
+  transition:transform .3s var(--ease),opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+.mobile-menu{
+  display:none;position:fixed;inset:0;z-index:99;
+  background:rgba(5,5,5,.96);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  flex-direction:column;align-items:center;justify-content:center;gap:32px;
+  opacity:0;transition:opacity .3s var(--ease);
+}
+.mobile-menu.open{display:flex;opacity:1}
+.mobile-menu a{
+  font-size:24px;font-family:var(--serif);color:var(--text);
+  transition:color .2s;letter-spacing:-.01em;
+}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-menu .btn{font-family:var(--sans);font-size:15px;margin-top:8px}
+
 @media(min-width:768px){
   .nav-links{display:flex}
+  .nav-hamburger{display:none}
+  .mobile-menu{display:none!important}
 }
 
 /* ========== HERO ========== */
@@ -327,8 +363,8 @@ nav{
 
 /* ========== STATS BAR ========== */
 .stats{
-  background:var(--bg-light);
-  color:var(--text-dark);
+  background:var(--bg-elev);
+  color:var(--text);
   padding:56px 0;
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
@@ -342,11 +378,11 @@ nav{
   font-family:var(--serif);
   font-size:clamp(48px,6vw,76px);
   line-height:1;letter-spacing:-.02em;
-  color:var(--text-dark);
+  color:var(--text);
   margin-bottom:8px;
 }
-.stat-num .unit{font-size:.5em;color:#515154;vertical-align:super;margin-left:2px}
-.stat-label{font-size:13px;color:#6e6e73;font-weight:400;line-height:1.5;max-width:180px;margin:0 auto}
+.stat-num .unit{font-size:.5em;color:var(--text-muted);vertical-align:super;margin-left:2px}
+.stat-label{font-size:13px;color:var(--text-dim);font-weight:400;line-height:1.5;max-width:180px;margin:0 auto}
 
 /* ========== SECTIONS ========== */
 section{padding:120px 0;position:relative}
@@ -529,6 +565,21 @@ section{padding:120px 0;position:relative}
 }
 .review-label{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.12em}
 
+.reviews-nav{
+  display:flex;justify-content:center;gap:12px;margin-top:32px;
+}
+.reviews-nav button{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1px solid var(--border-strong);
+  color:var(--text-dim);font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .25s var(--ease);
+}
+.reviews-nav button:hover{
+  background:rgba(255,255,255,.12);color:var(--text);
+  border-color:rgba(255,255,255,.2);transform:scale(1.05);
+}
+
 /* ========== PRICING ========== */
 .pricing-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:880px;margin:0 auto}
 @media(min-width:760px){.pricing-grid{grid-template-columns:1fr 1fr}}
@@ -545,13 +596,7 @@ section{padding:120px 0;position:relative}
   border:1px solid rgba(0,113,227,.4);
   box-shadow:0 30px 90px -40px var(--accent-glow);
 }
-.price-card.featured::before{
-  content:"Most popular";
-  position:absolute;top:-12px;left:32px;
-  font-size:11px;font-weight:500;
-  padding:5px 12px;border-radius:var(--radius-pill);
-  background:var(--accent);color:#fff;letter-spacing:.02em;
-}
+.price-card.featured::before{display:none}
 .price-card:hover{transform:translateY(-4px)}
 .price-tier{font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:var(--text-muted);margin-bottom:14px}
 .price-card.featured .price-tier{color:var(--accent)}
@@ -648,8 +693,17 @@ footer{
       <a href="#reviews">Reviews</a>
     </div>
     <a href="#contact" class="nav-cta" data-cal-link="agentify-demo/15min" data-cal-config='{"theme":"dark"}'>Book a demo</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#how" onclick="closeMobile()">How it works</a>
+  <a href="#handles" onclick="closeMobile()">What it handles</a>
+  <a href="#pricing" onclick="closeMobile()">Pricing</a>
+  <a href="#reviews" onclick="closeMobile()">Reviews</a>
+  <a href="#contact" class="btn btn-primary" data-cal-link="agentify-demo/15min" data-cal-config='{"theme":"dark"}' onclick="closeMobile()">Book a demo <span class="arrow">→</span></a>
+</div>
 
 <main id="top">
 
@@ -889,6 +943,10 @@ footer{
         </div>
       </div>
     </div>
+    <div class="reviews-nav">
+      <button onclick="scrollReviews(-1)" aria-label="Previous reviews">←</button>
+      <button onclick="scrollReviews(1)" aria-label="Next reviews">→</button>
+    </div>
   </section>
 
   <!-- ========== PRICING ========== -->
@@ -948,7 +1006,7 @@ footer{
       <a href="#contact">Contact</a>
       <a href="mailto:hello@useagentify.com">Email</a>
     </div>
-    <div>&copy; 2026 Agentify · Minneapolis, MN</div>
+    <div>&copy; 2026 Agentify · Minneapolis, MN · Built for businesses that can't afford to miss a call.</div>
   </div>
 </footer>
 
@@ -964,14 +1022,45 @@ footer{
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // ── Nav shrink
+  // ── Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── Nav shrink + active link highlighting
   const nav = document.getElementById('nav');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
   let lastY = 0;
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     if (y > 20) nav.style.padding = '10px 0'; else nav.style.padding = '14px 0';
+    // Active nav link
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 120;
+      if (y >= top) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
     lastY = y;
   }, { passive: true });
+
+  // ── Review scroll arrows
+  function scrollReviews(dir) {
+    const scroller = document.querySelector('.reviews-scroll');
+    if (scroller) scroller.scrollBy({ left: dir * 360, behavior: 'smooth' });
+  }
 
   // ── Card mouse tracking (glow)
   document.querySelectorAll('.human-card').forEach(card => {
@@ -1005,7 +1094,7 @@ footer{
   });
   Cal.ns["agentify-inline"]("ui", {
     theme: "dark",
-    styles: {branding: {brandColor: "#c4644a"}},
+    styles: {branding: {brandColor: "#0071e3"}},
     hideEventTypeDetails: false,
     layout: "month_view"
   });
@@ -1014,7 +1103,7 @@ footer{
   Cal("init", "agentify-popup", {origin:"https://cal.com"});
   Cal.ns["agentify-popup"]("ui", {
     theme: "dark",
-    styles: {branding: {brandColor: "#c4644a"}}
+    styles: {branding: {brandColor: "#0071e3"}}
   });
 
   // Wire up all [data-cal-link] buttons as popup triggers
