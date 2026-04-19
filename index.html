@@ -69,7 +69,7 @@ body::before{
   pointer-events:none;
   background:
     radial-gradient(1200px 700px at 20% -10%, rgba(0,113,227,.12), transparent 60%),
-    radial-gradient(1000px 600px at 90% 10%, rgba(196,100,74,.06), transparent 60%);
+    radial-gradient(1000px 600px at 90% 10%, rgba(0,113,227,.06), transparent 60%);
   z-index:0;
 }
 
@@ -92,10 +92,10 @@ nav{
 }
 .nav-inner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-size:19px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
-.nav-logo .dot{width:9px;height:9px;border-radius:50%;background:var(--coral);box-shadow:0 0 12px var(--coral-glow);animation:pulse 2.4s var(--ease) infinite}
+.nav-logo .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);animation:pulse 2.4s var(--ease) infinite}
 .nav-logo .mark{width:28px;height:28px;position:relative;display:flex;align-items:center;justify-content:center}
-.nav-logo .mark::before{content:"";position:absolute;inset:0;border:1.8px solid var(--coral);border-radius:7px;opacity:.85}
-.nav-logo .mark .dot{width:9px;height:9px;border-radius:50%;background:var(--coral);box-shadow:0 0 12px var(--coral-glow);animation:pulse 2.4s var(--ease) infinite}
+.nav-logo .mark::before{content:"";position:absolute;inset:0;border:1.8px solid var(--accent);border-radius:7px;opacity:.85}
+.nav-logo .mark .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);animation:pulse 2.4s var(--ease) infinite}
 .nav-links{display:none;align-items:center;gap:32px}
 .nav-links a{font-size:13px;color:var(--text-dim);font-weight:400;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
@@ -129,14 +129,14 @@ nav{
 
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(196,100,74,.08);
-  border:1px solid rgba(196,100,74,.22);
-  color:var(--coral);
+  background:rgba(0,113,227,.08);
+  border:1px solid rgba(0,113,227,.22);
+  color:var(--accent);
   padding:7px 14px;border-radius:var(--radius-pill);
   font-size:12px;font-weight:500;letter-spacing:.02em;
   margin-bottom:28px;
 }
-.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--coral);box-shadow:0 0 10px var(--coral-glow);animation:pulse 2.4s var(--ease) infinite}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);animation:pulse 2.4s var(--ease) infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.85)}}
 
 .hero h1{
@@ -203,7 +203,7 @@ nav{
 }
 .waveform span{
   display:block;width:3px;border-radius:2px;
-  background:linear-gradient(180deg,var(--accent),var(--coral));
+  background:linear-gradient(180deg,var(--accent),var(--accent));
   animation:wave 1.4s ease-in-out infinite;
 }
 .waveform span:nth-child(1){animation-delay:-1.3s}
@@ -656,7 +656,6 @@ footer{
     <div class="container">
       <div class="hero-grid">
         <div>
-          <div class="eyebrow reveal"><span class="dot"></span>AI Receptionist — Now Available</div>
           <h1 class="reveal delay-1">
             <span class="sans">Every call answered.</span><br>
             <span class="grad">Every job booked.</span>
@@ -940,7 +939,7 @@ footer{
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand"><span style="width:8px;height:8px;border-radius:50%;background:var(--coral);box-shadow:0 0 10px var(--coral-glow)"></span>agentify</div>
+    <div class="footer-brand"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow)"></span>agentify</div>
     <div class="footer-links">
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
