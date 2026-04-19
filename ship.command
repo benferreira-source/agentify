@@ -10,7 +10,7 @@ CHAT="-5133143507"
 LABEL="com.dobby.agentify"
 PLIST="$HOME/Library/LaunchAgents/${LABEL}.plist"
 PORT=8810
-SITE_URL="https://agentify.benops.dev"
+SITE_URL="https://useagentify.com"
 
 tg() {
   local msg="$1"

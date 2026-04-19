@@ -44,7 +44,7 @@ If they laugh, you're in. If they're annoyed, acknowledge and move on — they'r
 **Volume target:** 200/day per founder = 400/day total.
 
 **Domain setup:**
-- Use secondary domains (e.g., `getagentify.com`, `agentify-ai.com`) to protect `agentify.benops.dev` deliverability
+- Use secondary domains (e.g., `getagentify.com`, `agentify-ai.com`) to protect `useagentify.com` deliverability
 - 3 mailboxes per secondary domain, warmed for 3 weeks before sending
 - SPF, DKIM, DMARC configured; MailerLite or Instantly for sending + warmup
 
@@ -199,7 +199,7 @@ Top reasons people say yes:
 - Calendar: Cal.com for demo scheduling
 - Call recording: Gong (when budget allows; Zoom cloud recording for now)
 - Email sending: Instantly.ai
-- Tracking: UTM'd links on every outbound message, GA4 on agentify.benops.dev
+- Tracking: UTM'd links on every outbound message, GA4 on useagentify.com
 
 ---
 

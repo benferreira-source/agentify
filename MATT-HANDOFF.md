@@ -10,7 +10,7 @@ Matt,
 
 Quick rundown:
 
-- **Live site:** https://agentify.benops.dev
+- **Live site:** https://useagentify.com
 - **GitHub repo:** https://github.com/benferreira-source/agentify
 - **GTM playbook:** https://github.com/benferreira-source/agentify/blob/main/docs/GTM-PLAYBOOK.md
 

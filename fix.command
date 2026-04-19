@@ -56,7 +56,7 @@ launchctl print gui/${UID_NUM}/${LABEL} 2>&1 | grep -E "(state|last exit code|pi
 hr; echo "E · Healthcheck"
 sleep 2
 LOCAL=$(curl -sS -o /dev/null -w "%{http_code}" http://localhost:${PORT}/healthz --max-time 5)
-PUBLIC=$(curl -sS -o /dev/null -w "%{http_code}" https://agentify.benops.dev/ --max-time 10)
+PUBLIC=$(curl -sS -o /dev/null -w "%{http_code}" https://useagentify.com/ --max-time 10)
 echo "  local  → HTTP ${LOCAL}"
 echo "  public → HTTP ${PUBLIC}"
 
@@ -68,7 +68,7 @@ if [ "$LOCAL" != "200" ]; then
     > /tmp/agentify.log 2> /tmp/agentify-error.log &
   sleep 2
   LOCAL=$(curl -sS -o /dev/null -w "%{http_code}" http://localhost:${PORT}/healthz --max-time 5)
-  PUBLIC=$(curl -sS -o /dev/null -w "%{http_code}" https://agentify.benops.dev/ --max-time 10)
+  PUBLIC=$(curl -sS -o /dev/null -w "%{http_code}" https://useagentify.com/ --max-time 10)
   echo "  after nohup: local=${LOCAL} public=${PUBLIC}"
 fi
 
@@ -112,13 +112,13 @@ fi
 
 hr; echo "FINAL"
 FINAL_LOCAL=$(curl -sS -o /dev/null -w "%{http_code}" http://localhost:${PORT}/healthz --max-time 5)
-FINAL_PUB=$(curl -sS -o /dev/null -w "%{http_code}" https://agentify.benops.dev/ --max-time 10)
-echo "  site:   https://agentify.benops.dev   HTTP ${FINAL_PUB}"
+FINAL_PUB=$(curl -sS -o /dev/null -w "%{http_code}" https://useagentify.com/ --max-time 10)
+echo "  site:   https://useagentify.com   HTTP ${FINAL_PUB}"
 echo "  local:  http://localhost:${PORT}/       HTTP ${FINAL_LOCAL}"
 echo "  repo:   ${REPO}"
 
 MSG="Agentify deploy report:
-site https://agentify.benops.dev → HTTP ${FINAL_PUB}
+site https://useagentify.com → HTTP ${FINAL_PUB}
 local :${PORT} → HTTP ${FINAL_LOCAL}
 repo: ${REPO}"
 tg "$MSG"
