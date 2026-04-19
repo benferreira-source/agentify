@@ -586,32 +586,14 @@ section{padding:120px 0;position:relative}
 }
 .final-cta p{font-size:19px;color:var(--text-dim);margin-bottom:40px;line-height:1.5}
 
-.email-form{
-  display:flex;flex-direction:column;gap:12px;
-  max-width:480px;margin:0 auto 32px;
+.cal-embed-wrap{
+  max-width:680px;margin:0 auto 32px;
+  min-height:480px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
 }
-@media(min-width:560px){.email-form{flex-direction:row}}
-.email-form input{
-  flex:1;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--border-strong);
-  border-radius:var(--radius-pill);
-  padding:15px 22px;
-  font:inherit;font-size:15px;
-  color:var(--text);
-  outline:none;
-  transition:border-color .2s,background .2s;
-}
-.email-form input::placeholder{color:var(--text-muted)}
-.email-form input:focus{border-color:var(--accent);background:rgba(255,255,255,.08)}
-.email-form button{
-  background:var(--accent);color:#fff;
-  padding:15px 28px;border-radius:var(--radius-pill);
-  font:inherit;font-size:15px;font-weight:500;
-  box-shadow:0 1px 0 rgba(255,255,255,.15) inset,0 8px 30px -10px var(--accent-glow);
-  transition:transform .2s var(--ease),background .2s;
-}
-.email-form button:hover{background:var(--accent-hover);transform:translateY(-1px)}
 
 .trust-badges{
   display:flex;justify-content:center;flex-wrap:wrap;gap:24px;
@@ -662,7 +644,7 @@ footer{
       <a href="#pricing">Pricing</a>
       <a href="#reviews">Reviews</a>
     </div>
-    <a href="#contact" class="nav-cta">Book a demo</a>
+    <a href="#contact" class="nav-cta" data-cal-link="benferreira/agentify-demo" data-cal-config='{"theme":"dark"}'>Book a demo</a>
   </div>
 </nav>
 
@@ -682,7 +664,7 @@ footer{
             An AI receptionist that answers every inquiry, books appointments, and follows up with leads — 24/7. You see every conversation and stay in control.
           </p>
           <div class="cta-row reveal delay-3">
-            <a href="#contact" class="btn btn-primary">Book a demo <span class="arrow">→</span></a>
+            <a href="#contact" class="btn btn-primary" data-cal-link="benferreira/agentify-demo" data-cal-config='{"theme":"dark"}'>Book a demo <span class="arrow">→</span></a>
             <a href="#how" class="btn btn-ghost">See how it works</a>
           </div>
           <p class="hero-note reveal delay-3">30-minute call. We'll show you exactly what it would do for your business.</p>
@@ -929,7 +911,7 @@ footer{
             <li><span class="check">✓</span>Human always in the loop</li>
             <li><span class="check">✓</span>No contracts — cancel anytime</li>
           </ul>
-          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">Get Started <span class="arrow">→</span></a>
+          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center" data-cal-link="benferreira/agentify-demo" data-cal-config='{"theme":"dark"}'>Book a demo <span class="arrow">→</span></a>
         </div>
       </div>
       <p class="price-note">That's less than $7/day. A missed call costs more.</p>
@@ -940,18 +922,15 @@ footer{
   <section class="final-cta" id="contact">
     <div class="final-cta-inner">
       <h2 class="reveal">Stop losing jobs<br>to voicemail.</h2>
-      <p class="reveal delay-1">One 30-minute call. We'll show you what it would look like for your specific business. No commitment.</p>
-      <form class="email-form reveal delay-2" onsubmit="handleSubmit(event)">
-        <input type="email" placeholder="your@email.com" required>
-        <button type="submit">Book a demo →</button>
-      </form>
+      <p class="reveal delay-1">Pick a time that works. 30 minutes — we'll show you what it would look like for your specific business.</p>
+      <div class="cal-embed-wrap reveal delay-2" id="cal-inline"></div>
       <div class="trust-badges reveal delay-3">
         <span><span class="check">✓</span>No contracts</span>
         <span><span class="check">✓</span>Human in the loop</span>
         <span><span class="check">✓</span>Live in days</span>
       </div>
       <p style="margin-top:40px;color:var(--text-muted);font-size:14px" class="reveal delay-3">
-        Prefer to skip the form? <a href="mailto:benferreira@icloud.com?subject=Agentify%20-%20Strategy%20Call" style="color:var(--accent);border-bottom:1px solid rgba(0,113,227,.3)">benferreira@icloud.com</a> · <a href="tel:6129618786" style="color:var(--accent);border-bottom:1px solid rgba(0,113,227,.3)">(612) 961-8786</a>
+        Prefer email? <a href="mailto:benferreira@icloud.com?subject=Agentify%20-%20Strategy%20Call" style="color:var(--accent);border-bottom:1px solid rgba(0,113,227,.3)">benferreira@icloud.com</a> · <a href="tel:6129618786" style="color:var(--accent);border-bottom:1px solid rgba(0,113,227,.3)">(612) 961-8786</a>
       </p>
     </div>
   </section>
@@ -1001,14 +980,51 @@ footer{
     });
   });
 
-  // ── Form handler (mailto fallback until backend is wired)
-  function handleSubmit(e) {
-    e.preventDefault();
-    const email = e.target.querySelector('input').value;
-    const subject = encodeURIComponent('Agentify — Demo request');
-    const body = encodeURIComponent(`Hi Ben,\n\nI'd like to see a demo.\n\nEmail: ${email}\n`);
-    window.location.href = `mailto:benferreira@icloud.com?subject=${subject}&body=${body}`;
-  }
+  // ── Cal.com inline embed (contact section)
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true; }
+      if (ar[0] === L) { const api = function () { p(api, arguments); };
+        const ns = ar[1]; api.q = api.q || []; if (typeof ns === "string") { cal.ns[ns] = cal.ns[ns] || api; p(cal.ns[ns], ar); p(cal, ["initNamespace", ns]); } else p(cal, ar); return; }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  // Inline calendar in the contact section
+  Cal("init", "agentify-inline", {origin:"https://cal.com"});
+  Cal.ns["agentify-inline"]("inline", {
+    elementOrSelector: "#cal-inline",
+    calLink: "benferreira/agentify-demo",
+    config: {theme: "dark"},
+    layout: "month_view"
+  });
+  Cal.ns["agentify-inline"]("ui", {
+    theme: "dark",
+    styles: {branding: {brandColor: "#0071e3"}},
+    hideEventTypeDetails: false,
+    layout: "month_view"
+  });
+
+  // Popup calendar for all data-cal-link buttons
+  Cal("init", "agentify-popup", {origin:"https://cal.com"});
+  Cal.ns["agentify-popup"]("ui", {
+    theme: "dark",
+    styles: {branding: {brandColor: "#0071e3"}}
+  });
+
+  // Wire up all [data-cal-link] buttons as popup triggers
+  document.querySelectorAll('[data-cal-link]').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      Cal.ns["agentify-popup"]("modal", {
+        calLink: this.getAttribute('data-cal-link'),
+        config: {theme: "dark", layout: "month_view"}
+      });
+    });
+  });
 
   // ── Loop transcript (restart animations)
   const transcript = document.querySelector('.transcript');
