@@ -1,7 +1,7 @@
 #!/opt/homebrew/bin/python3
 """
 Agentify site server — port 8810
-Serves /Users/dobby/Desktop/agentify/ (the new dark-aesthetic site).
+Serves the Agentify site directory (SITE_DIR below).
 
 Public:
   GET  /                 → index.html
@@ -16,10 +16,30 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import os, json, mimetypes, sys, traceback
 from typing import Optional
 
-SITE_DIR    = '/Users/dobby/Desktop/agentify'
+SITE_DIR    = '/Users/dobby/Desktop/Lead By Design Labs/agentify'
 ADMIN_FILE  = os.path.join(SITE_DIR, 'index.html')
-ADMIN_TOKEN = '***REMOVED***'
 PORT        = 8810
+
+# --- Load admin token from env file (never hardcoded) ---
+def _load_admin_token():
+    env_path = os.path.expanduser('~/.dobby/.env.agentify')
+    try:
+        with open(env_path) as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith('AGENTIFY_ADMIN_TOKEN='):
+                    token = line.split('=', 1)[1]
+                    if token:
+                        return token
+    except FileNotFoundError:
+        pass
+    sys.stderr.write(
+        'FATAL: no admin token. Create %s with AGENTIFY_ADMIN_TOKEN=<token>.\n' % env_path
+    )
+    sys.stderr.flush()
+    sys.exit(1)
+
+ADMIN_TOKEN = _load_admin_token()
 
 # Good MIME types for the files we actually serve
 mimetypes.add_type('image/svg+xml', '.svg')
@@ -29,7 +49,20 @@ mimetypes.add_type('application/json', '.json')
 mimetypes.add_type('text/markdown; charset=utf-8', '.md')
 
 
+_SECURITY_HEADERS = {
+    'X-Frame-Options': 'DENY',
+    'X-Content-Type-Options': 'nosniff',
+    'Strict-Transport-Security': 'max-age=31536000',
+    'Content-Security-Policy': "default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src * data:; font-src * data:",
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+}
+
+
 class Handler(BaseHTTPRequestHandler):
+
+    def _send_security_headers(self):
+        for k, v in _SECURITY_HEADERS.items():
+            self.send_header(k, v)
 
     def _resolve(self, url_path):
         # type: (str) -> Optional[str]
@@ -58,13 +91,14 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header('Content-Type', ct)
         self.send_header('Content-Length', str(len(data)))
         self.send_header('Cache-Control', 'no-cache')
-        self.send_header('X-Content-Type-Options', 'nosniff')
+        self._send_security_headers()
         self.end_headers()
         self.wfile.write(data)
 
     def _auth(self) -> bool:
         if self.headers.get('X-Admin-Token') != ADMIN_TOKEN:
             self.send_response(401)
+            self._send_security_headers()
             self.end_headers()
             self.wfile.write(b'unauthorized')
             return False
@@ -75,6 +109,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header('Content-Type', 'application/json')
         self.send_header('Content-Length', str(len(body)))
+        self._send_security_headers()
         self.end_headers()
         self.wfile.write(body)
 
@@ -89,6 +124,7 @@ class Handler(BaseHTTPRequestHandler):
                 data = f.read()
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self._send_security_headers()
             self.end_headers()
             self.wfile.write(data)
             return
@@ -100,6 +136,7 @@ class Handler(BaseHTTPRequestHandler):
         resolved = self._resolve(path)
         if not resolved:
             self.send_response(404)
+            self._send_security_headers()
             self.end_headers()
             self.wfile.write(b'not found')
             return
@@ -107,6 +144,7 @@ class Handler(BaseHTTPRequestHandler):
             self._serve_file(resolved)
         except Exception as e:
             self.send_response(500)
+            self._send_security_headers()
             self.end_headers()
             self.wfile.write(f'error: {e}'.encode('utf-8'))
 
@@ -147,6 +185,7 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         self.send_response(404)
+        self._send_security_headers()
         self.end_headers()
 
     def log_message(self, fmt, *args):

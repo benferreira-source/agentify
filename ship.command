@@ -5,8 +5,13 @@
 set +e  # keep going even if a step fails — we log each
 cd "$(dirname "$0")"
 
-BOT="***REMOVED***"
-CHAT="***REMOVED***"
+# Source Telegram credentials from ~/.dobby/credentials.env
+CRED_FILE="$HOME/.dobby/credentials.env"
+if [ -f "$CRED_FILE" ]; then
+  BOT="$(grep '^TELEGRAM_BOT_TOKEN=' "$CRED_FILE" | cut -d= -f2)"
+  CHAT_FROM_ENV="$(grep '^TELEGRAM_CHAT_ID=' "$CRED_FILE" | cut -d= -f2)"
+fi
+CHAT="${CHAT_FROM_ENV}"
 LABEL="com.dobby.agentify"
 PLIST="$HOME/Library/LaunchAgents/${LABEL}.plist"
 PORT=8810
@@ -14,6 +19,7 @@ SITE_URL="https://useagentify.com"
 
 tg() {
   local msg="$1"
+  [ -n "$BOT" ] && [ -n "$CHAT" ] || return 0
   curl -sS -o /dev/null "https://api.telegram.org/bot${BOT}/sendMessage" \
     --data-urlencode "chat_id=${CHAT}" \
     --data-urlencode "text=${msg}" \

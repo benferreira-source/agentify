@@ -3,14 +3,19 @@
 
 cd "$(dirname "$0")"
 
-BOT="***REMOVED***"
-CHAT="***REMOVED***"
+# Source Telegram credentials from ~/.dobby/credentials.env (never hardcoded)
+CRED_FILE="$HOME/.dobby/credentials.env"
+if [ -f "$CRED_FILE" ]; then
+  BOT="$(grep '^TELEGRAM_BOT_TOKEN=' "$CRED_FILE" | cut -d= -f2)"
+  CHAT="$(grep '^TELEGRAM_CHAT_ID=' "$CRED_FILE" | cut -d= -f2)"
+fi
 LABEL="com.dobby.agentify"
 PLIST="$HOME/Library/LaunchAgents/${LABEL}.plist"
 PORT=8810
 UID_NUM=$(id -u)
 
 tg() {
+  [ -n "$BOT" ] && [ -n "$CHAT" ] || return 0
   curl -sS -o /dev/null "https://api.telegram.org/bot${BOT}/sendMessage" \
     --data-urlencode "chat_id=${CHAT}" \
     --data-urlencode "text=$1" 2>/dev/null || true
@@ -33,7 +38,7 @@ sleep 1
 lsof -ti :${PORT} 2>/dev/null | xargs -r kill -9
 
 TMPLOG=$(mktemp)
-/opt/homebrew/bin/python3 /Users/dobby/Desktop/agentify/server.py > "$TMPLOG" 2>&1 &
+/opt/homebrew/bin/python3 "$(dirname "$0")/server.py" > "$TMPLOG" 2>&1 &
 PYPID=$!
 sleep 2
 echo "  pid=${PYPID}"
@@ -64,7 +69,7 @@ if [ "$LOCAL" != "200" ]; then
   echo ""
   echo "F · launchd still broken — falling back to direct nohup spawn"
   lsof -ti :${PORT} | xargs -r kill -9
-  nohup /opt/homebrew/bin/python3 /Users/dobby/Desktop/agentify/server.py \
+  nohup /opt/homebrew/bin/python3 "$(dirname "$0")/server.py" \
     > /tmp/agentify.log 2> /tmp/agentify-error.log &
   sleep 2
   LOCAL=$(curl -sS -o /dev/null -w "%{http_code}" http://localhost:${PORT}/healthz --max-time 5)
@@ -84,7 +89,7 @@ if gh auth status 2>&1 | tee /tmp/gh_auth_status.txt; then
   echo "  user: ${GH_USER}"
   echo ""
   echo "I · Create repo + push"
-  cd /Users/dobby/Desktop/agentify
+  cd "$(dirname "$0")"
   [ -d .git ] && rm -rf .git
   git init -b main -q
   git config user.email "benferreira@icloud.com"
